@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { InboundTrainsComponent } from './inbound-trains/inbound-trains.component';
 import { OutboundTrainsComponent } from './outbound-trains/outbound-trains.component';
 import { ClockComponent } from './clock/clock.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ClockComponent } from './clock/clock.component';
     ClockComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
