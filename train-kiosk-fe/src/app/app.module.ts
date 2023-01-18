@@ -7,6 +7,8 @@ import { OutboundTrainsComponent } from './outbound-trains/outbound-trains.compo
 import { ClockComponent } from './clock/clock.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatGridListModule } from '@angular/material/grid-list';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
