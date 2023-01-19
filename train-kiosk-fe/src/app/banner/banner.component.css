@@ -1,10 +1,35 @@
-h1
-{
-    font-size: 50px;
+#trainLogo {
+    width: 8%;
+    height: auto;
+    margin: 0, 0, 0, 0;
+    transform: translate(400px, -80px);
+
 
 }
-#trainLogo
-{
-    width: 5%;
-    height: auto;
+
+* {
+    border: 1px solid red;
+
+}
+
+.column1 {
+    float: left;
+    width: 20%;
+    padding: 20px;
+    height: 50px;
+    /* Should be removed. Only for demonstration */
+}
+
+.column {
+
+    width: 100%;
+    padding: 20px;
+    height: 30px;
+    /* Should be removed. Only for demonstration */
+}
+
+div {
+    font-size: 4rem;
+
+    padding: 0, 100, 100, 200;
 }

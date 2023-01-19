@@ -16,6 +16,11 @@ body {
     justify-content: center;
 }
 
+.alignLeft {
+    display: flex;
+    justify-content: start;
+}
+
 .border {
     border: 1px solid red;
 }
