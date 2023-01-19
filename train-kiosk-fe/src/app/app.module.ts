@@ -6,6 +6,8 @@ import { InboundTrainsComponent } from './inbound-trains/inbound-trains.componen
 import { OutboundTrainsComponent } from './outbound-trains/outbound-trains.component';
 import { ClockComponent } from './clock/clock.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BannerComponent } from './banner/banner.component';
+import { FooterComponent } from './footer/footer.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -14,7 +16,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AppComponent,
     InboundTrainsComponent,
     OutboundTrainsComponent,
-    ClockComponent
+    ClockComponent,
+    BannerComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
