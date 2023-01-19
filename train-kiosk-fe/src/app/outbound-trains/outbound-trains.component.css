@@ -1,11 +1,12 @@
 mat-grid-list mat-grid-tile {
-    border: 1px solid #ccc;
+  border: 1px solid rgba(204, 204, 204, 0.393);
     background-color: rgb(237, 66, 66);
   }
   
   h1 {
     font-size: 3rem;
-    margin-top: 80px;
+    margin-top: 70px;
+    margin-bottom: 20px;
   }
   
   h2 {
@@ -14,4 +15,5 @@ mat-grid-list mat-grid-tile {
   
   h3 {
     font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.881);
   }
