@@ -1,16 +1,13 @@
 #trainLogo {
-    width: 8%;
+    width:13%;
     height: auto;
     margin: 0, 0, 0, 0;
-    transform: translate(400px, -80px);
+    transform: translate(-3px, 195px);
 
 
 }
 
-* {
-    border: 1px solid red;
 
-}
 
 .column1 {
     float: left;
@@ -23,13 +20,15 @@
 .column {
 
     width: 100%;
-    padding: 20px;
-    height: 30px;
+   height: auto;
+   padding-top: 30px;
+   font-size: 4rem;
     /* Should be removed. Only for demonstration */
 }
 
 div {
-    font-size: 4rem;
+    
 
-    padding: 0, 100, 100, 200;
+
+    
 }
