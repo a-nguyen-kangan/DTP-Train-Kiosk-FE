@@ -7,9 +7,16 @@ body {
 
 body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    padding: 20px;
+
 }
 
 .centre {
     display: flex;
     justify-content: center;
+}
+
+.alignLeft {
+    display: flex;
+    justify-content: start;
 }
