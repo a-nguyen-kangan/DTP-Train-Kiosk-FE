@@ -1,10 +1,7 @@
 #trainLogo {
-    width:13%;
+    max-width:15%;
     height: auto;
-    margin: 0, 0, 0, 0;
     transform: translate(-3px, 195px);
-
-
 }
 
 
@@ -20,15 +17,8 @@
 .column {
 
     width: 100%;
-   height: auto;
-   padding-top: 30px;
-   font-size: 4rem;
+    height: auto;
+    padding-top: 30px;
+    font-size: 4rem;
     /* Should be removed. Only for demonstration */
-}
-
-div {
-    
-
-
-    
 }
