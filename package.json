@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --deploy-url /DTP-Train-Kiosk-FE/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:deploy": "ng deploy --base-href=/DTP-Train-Kiosk-FE/ --no-silent"
+    "deploy": "ng deploy --base-href=/DTP-Train-Kiosk-FE/"
   },
   "private": true,
   "dependencies": {
