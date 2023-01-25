@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --deploy-url /DTP-Train-Kiosk-FE/",
+    "build": "ng build --base-href /DTP-Train-Kiosk-FE/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "deploy": "ng deploy --base-href=/DTP-Train-Kiosk-FE/"
