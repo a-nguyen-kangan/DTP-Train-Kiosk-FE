@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:deploy": "ng deploy --base-href=/DTP-Train-Kiosk-FE/"
   },
   "private": true,
   "dependencies": {
