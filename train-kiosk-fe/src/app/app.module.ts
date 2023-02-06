@@ -10,6 +10,7 @@ import { BannerComponent } from './banner/banner.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
+import { WeatherWidgetComponent } from './weather-widget/weather-widget.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     OutboundTrainsComponent,
     ClockComponent,
     BannerComponent,
-    FooterComponent
+    FooterComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,
