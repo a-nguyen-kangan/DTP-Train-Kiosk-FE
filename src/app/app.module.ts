@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { InboundTrainsComponent } from './inbound-trains/inbound-trains.component';
@@ -23,7 +24,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
   imports: [
     BrowserModule,
     NoopAnimationsModule,
-    MatGridListModule
+    MatGridListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
