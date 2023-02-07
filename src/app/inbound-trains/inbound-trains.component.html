@@ -23,28 +23,28 @@
             <h3>City Loop</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>1</h3>
+            <h3>{{ cityLoopDepartures[0] }}</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>5min</h3>
+            <h3>{{ cityLoopDepartures[1] }}min</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>Full</h3>
+            <h3>N/A</h3>
         </mat-grid-tile>
     </mat-grid-list>
 
     <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px">
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>Flinders</h3>
+            <h3>Flinders Street</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>4</h3>
+            <h3>{{ this.nextTrainFlinders[0].platform_number }}</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
             <h3>10min</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>Limited</h3>
+            <h3>N/A</h3>
         </mat-grid-tile>
     </mat-grid-list>
 </div>
