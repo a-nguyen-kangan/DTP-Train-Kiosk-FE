@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
 import { HelperService } from '../helper/helper.service';
-import { catchError, filter, map } from 'rxjs';
-import { Departure } from '../departure';
+import { catchError, filter, map, Observable, of } from 'rxjs';
+import { Departure, NextDeparture } from '../departure';
 
 
 @Component({
@@ -11,45 +11,94 @@ import { Departure } from '../departure';
   styleUrls: ['./inbound-trains.component.css']
 })
 export class InboundTrainsComponent implements OnInit {
-  constructor(private api: ApiService, public helper: HelperService) { }
+  constructor(private api: ApiService, public helper: HelperService, private ngZone: NgZone) { }
 
   currentTime: Date;
-  data: string;
   cityLoopDepartures: Array<string> = [];
-  nextTrainFlinders: any;
-  nextTrainFlindersPlatform: string;
-  nextTrainFlindersMins: number;
-  nextTrainCityLoop: any;
+  nextTrain: any;
+  nextDeparture: NextDeparture[] = [];
+  nextDeparture$: Observable<NextDeparture[]>;
 
   async ngOnInit() {
-    // The PTV API returns the destination like: "Flinders Street ", with the quotation marks and space at the end.
-    this.nextTrainFlinders = await this.api.getNextInbound(`"Flinders Street "`);
-    this.nextTrainFlindersPlatform = this.nextTrainFlinders[0].platform_number;
-    this.updateTime();
-    this.getArrivingMinutes(this.toDate(this.nextTrainFlinders[0].estimated_departure_utc));
-    setInterval(() => {
+    // The PTV API returns the destination as: Flinders Street , with one space at the end.
+    this.updateDepartures().subscribe(nextDeparture => {
+      this.nextDeparture$ = of(nextDeparture);
+      // this.nextDeparture$ = of(this.nextDeparture);
+      // this.updateDepartures();
       this.updateTime();
-      this.getArrivingMinutes(this.toDate(this.nextTrainFlinders[0].estimated_departure_utc));
-      this.updateDeparture(this.nextTrainFlinders, `"Flinders Street "`);
-    }, 10000);
+      console.log(this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc)));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[1].estimated_departure_utc));
+      setInterval(() => {
+        this.ngZone.run(() => {
+          console.log('test');
+          this.updateTime();
+          this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc));
+          this.getArrivingMinutes(this.toDate(this.nextTrain[1].estimated_departure_utc));
+          this.nextDeparture$ = of(this.nextDeparture);
+        });
+      }, 15000);
+    });
 
-    // this.nextTrainCityLoop = await this.api.getDestinationNameInbound(`"Parliament "`) || await this.api.getDestinationNameInbound(`"Southern Cross "`);
   }
 
-  async updateDeparture(nextTrain: any, linePTVFormat: string) {
-    try {
-      this.nextTrainFlinders = await this.api.getNextInbound(linePTVFormat);
-      this.nextTrainFlindersPlatform = this.nextTrainFlinders[0].platform_number;
-    } catch (error) {
-      console.log(error);
-    }
+  // async updateDepartures() {
+  //   let nextTrain: Departure[] = await this.api.getNextInbound();
+
+  //   for (let i in nextTrain) {
+  //     let tempNextDeparture: NextDeparture = new NextDeparture();
+  //     tempNextDeparture.destination = nextTrain[i].run_ref;
+  //     tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
+  //     tempNextDeparture.platformNumber = nextTrain[i].platform_number;
+
+  //     this.nextDeparture.push(tempNextDeparture);
+  //   }
+  // }
+
+  // updateDepartures(): Observable<NextDeparture[]> {
+  //   return new Observable(observer => {
+  //     this.api.getNextInbound().then((nextTrain: Departure[]) => {
+  //       for (let i in nextTrain) {
+  //         let tempNextDeparture: NextDeparture = new NextDeparture();
+  //         tempNextDeparture.destination = nextTrain[i].run_ref;
+  //         tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
+  //         tempNextDeparture.platformNumber = nextTrain[i].platform_number;
+
+  //         this.nextDeparture.push(tempNextDeparture);
+  //         console.log(this.nextDeparture)
+  //       }
+  //       observer.next(this.nextDeparture);
+  //       observer.complete();
+  //     });
+  //   });
+  // }
+
+  updateDepartures(): Observable<NextDeparture[]> {
+    let nextDeparture: NextDeparture[] = [];
+    return new Observable(observer => {
+      this.api.getNextInbound().then((nextTrain: Departure[]) => {
+        this.nextDeparture = [];
+        for (let i in nextTrain) {
+          let tempNextDeparture: NextDeparture = new NextDeparture();
+          tempNextDeparture.destination = nextTrain[i].run_ref;
+          tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
+          tempNextDeparture.platformNumber = nextTrain[i].platform_number;
+
+          this.nextDeparture.push(tempNextDeparture);
+          nextDeparture.push(tempNextDeparture);
+        }
+        this.nextDeparture.push(nextDeparture[0]);
+        this.nextDeparture.push(nextDeparture[1]);
+        //console.log(this.nextDeparture)
+        observer.next(this.nextDeparture);
+        observer.complete();
+      });
+    });
   }
 
   getArrivingMinutes(nextTrainTime: Date) {
     let timeDiff: number = nextTrainTime.getTime() - this.currentTime.getTime();
     let seconds: number = timeDiff / 1000;
-    console.log(seconds);
-    this.nextTrainFlindersMins = Math.round(seconds / 60);
+    return Math.round(seconds / 60);
   }
 
   updateTime() {

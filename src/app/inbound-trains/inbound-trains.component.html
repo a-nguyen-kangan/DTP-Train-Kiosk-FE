@@ -23,10 +23,14 @@
             <h3>City Loop</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ cityLoopDepartures[0] }}</h3>
+            <ng-container *ngIf="nextDeparture$ | async as nextDeparture">
+                <h3>{{ this.nextDeparture[1].platformNumber}}</h3>
+            </ng-container>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ cityLoopDepartures[1] }}min</h3>
+            <ng-container *ngIf="nextDeparture$ | async as nextDeparture">
+                <h3>{{ this.nextDeparture[1].time}} min</h3>
+            </ng-container>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
             <h3>N/A</h3>
@@ -38,10 +42,16 @@
             <h3>Flinders</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ this.nextTrainFlindersPlatform }}</h3>
+            <ng-container *ngIf="nextDeparture$ | async as nextDeparture">
+                <h3>{{ this.nextDeparture[0].platformNumber}}</h3>
+            </ng-container>
+            <!-- <h3>{{ this.nextTrainFlindersPlatform }}</h3> -->
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ this.nextTrainFlindersMins  }} min</h3>
+            <ng-container *ngIf="nextDeparture$ | async as nextDeparture">
+                <h3>{{ this.nextDeparture[0].time}} min</h3>
+            </ng-container>
+            <!-- <h3>{{ this.nextTrainFlindersMins }} min</h3> -->
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
             <h3>N/A</h3>
