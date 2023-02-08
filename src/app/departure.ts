@@ -12,3 +12,9 @@ export class Departure {
 export class RunRef {
     destination_name: string;
 }
+
+export class NextDeparture {
+    destination: string;
+    time: string;
+    platformNumber: string;
+}
