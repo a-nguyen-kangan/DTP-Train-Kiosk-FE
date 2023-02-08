@@ -47,18 +47,43 @@ export class ApiService {
     return filtered;
   }
 
-  async getNextInbound(line: string) {
+  async getNextInbound() {
     let filteredDepartures: Departure[] = await this.filterDepartures();
     let inboundDepartures = filteredDepartures.filter(departure => departure.direction_id === 1);
-    console.log(inboundDepartures)
     let destinationName: string;
     let nextTrain: Departure[] = [];
 
-    while (destinationName !== line) {
+    while (destinationName !== "Flinders Street ") {
       for (let i of inboundDepartures) {
+        // I think these calls are being made twice
         let destination = await this.getDestination(i.run_ref)
-        destinationName = JSON.stringify(destination.destination_name);
-        if (destinationName == line) {
+        destinationName = destination.destination_name;
+        if (destinationName === "Flinders Street ") {
+          nextTrain.push(i);
+          break;
+        }
+      }
+    }
+    nextTrain[0].run_ref = destinationName;
+    nextTrain[0].estimated_departure_utc = new Date(nextTrain[0].estimated_departure_utc).toLocaleTimeString();
+    
+    let cityLoop: Departure[] = await this.getNextInboundCityLoop();
+    nextTrain.push(cityLoop[0]);
+    return nextTrain;
+  }
+
+  async getNextInboundCityLoop() {
+    let filteredDepartures: Departure[] = await this.filterDepartures();
+    let inboundDepartures = filteredDepartures.filter(departure => departure.direction_id === 1);
+    let destinationName: string;
+    let nextTrain: Departure[] = [];
+
+    while (destinationName !== "Parliament " && destinationName !== "Southern Cross ") {
+      for (let i of inboundDepartures) {
+        // I think these calls are being made twice
+        let destination = await this.getDestination(i.run_ref)
+        destinationName = destination.destination_name;
+        if (destinationName === "Parliament " || destinationName === "Southern Cross ") {
           nextTrain.push(i);
           break;
         }
