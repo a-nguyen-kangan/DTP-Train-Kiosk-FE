@@ -12,31 +12,67 @@ import { Departure } from '../departure';
 })
 export class InboundTrainsComponent implements OnInit {
   constructor(private api: ApiService, public helper: HelperService) { }
+
+  currentTime: Date;
   data: string;
   cityLoopDepartures: Array<string> = [];
   nextTrainFlinders: any;
+  nextTrainFlindersPlatform: string;
+  nextTrainFlindersMins: number;
   nextTrainCityLoop: any;
 
   async ngOnInit() {
+    // The PTV API returns the destination like: "Flinders Street ", with the quotation marks and space at the end.
+    this.nextTrainFlinders = await this.api.getNextInbound(`"Flinders Street "`);
+    this.nextTrainFlindersPlatform = this.nextTrainFlinders[0].platform_number;
+    this.updateTime();
+    this.getArrivingMinutes(this.toDate(this.nextTrainFlinders[0].estimated_departure_utc));
+    setInterval(() => {
+      this.updateTime();
+      this.getArrivingMinutes(this.toDate(this.nextTrainFlinders[0].estimated_departure_utc));
+      this.updateDeparture(this.nextTrainFlinders, `"Flinders Street "`);
+    }, 10000);
+
+    // this.nextTrainCityLoop = await this.api.getDestinationNameInbound(`"Parliament "`) || await this.api.getDestinationNameInbound(`"Southern Cross "`);
+  }
+
+  async updateDeparture(nextTrain: any, linePTVFormat: string) {
     try {
-      this.nextTrainFlinders = await this.api.getDestinationNameInbound(`"Flinders Street "`);
+      this.nextTrainFlinders = await this.api.getNextInbound(linePTVFormat);
+      this.nextTrainFlindersPlatform = this.nextTrainFlinders[0].platform_number;
     } catch (error) {
       console.log(error);
     }
+  }
 
-    let date = new Date();
-    let time: string = date.toLocaleTimeString();
-    console.log(time);
+  getArrivingMinutes(nextTrainTime: Date) {
+    let timeDiff: number = nextTrainTime.getTime() - this.currentTime.getTime();
+    let seconds: number = timeDiff / 1000;
+    console.log(seconds);
+    this.nextTrainFlindersMins = Math.round(seconds / 60);
+  }
 
-    let currentTime: any = new Date().toLocaleTimeString
-    let timeToArrival = this.nextTrainFlinders[0].estimated_departure_utc - currentTime;
-    console.log(currentTime);
+  updateTime() {
+    this.currentTime = new Date();
+  }
 
-    // let currentTime = new Date();
-    // let estimatedDeparture = new Date(this.nextTrainFlinders[0].estimated_departure_utc);
-    // let timeToArrival = estimatedDeparture.getTime() - currentTime.getTime();
+  toDate(estimatedDepartureLocal: string) {
+    let date: Date = new Date();
+    let parts: string[] = estimatedDepartureLocal.split(/[\s:]+/);
+    let hours: number = parseInt(parts[0], 10);
+    let minutes: number = parseInt(parts[1], 10);
+    let seconds: number = parseInt(parts[2], 10);
 
+    if (parts[3] === "pm" && hours !== 12) {
+      hours += 12;
+    } else if (parts[3] === "am" && hours === 12) {
+      hours = 0;
+    }
 
-    //this.nextTrainCityLoop = await this.api.getDestinationNameInbound(`"Parliament "`) || await this.api.getDestinationNameInbound(`"Southern Cross "`);
+    date.setHours(hours);
+    date.setMinutes(minutes);
+    date.setSeconds(seconds);
+
+    return date;
   }
 }
