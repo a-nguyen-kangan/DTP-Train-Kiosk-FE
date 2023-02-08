@@ -47,7 +47,7 @@ export class ApiService {
     return filtered;
   }
 
-  async getDestinationNameInbound(line: string) {
+  async getNextInbound(line: string) {
     let filteredDepartures: Departure[] = await this.filterDepartures();
     let inboundDepartures = filteredDepartures.filter(departure => departure.direction_id === 1);
     console.log(inboundDepartures)
