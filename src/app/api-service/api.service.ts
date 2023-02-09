@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ApiSignatureGenService } from '../api-signature-gen/api-signature-gen.service';
 import { Departure, RunRef } from '../departure';
-import { filter } from 'rxjs';
-// import { map } from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +62,7 @@ export class ApiService {
     }
     nextTrain[0].run_ref = destinationName;
     nextTrain[0].estimated_departure_utc = new Date(nextTrain[0].estimated_departure_utc).toLocaleTimeString();
-    
+
     let cityLoop: Departure[] = await this.getNextInboundCityLoop();
     nextTrain.push(cityLoop[0]);
     return nextTrain;
@@ -91,6 +87,29 @@ export class ApiService {
     }
     nextTrain[0].run_ref = destinationName;
     nextTrain[0].estimated_departure_utc = new Date(nextTrain[0].estimated_departure_utc).toLocaleTimeString();
+    return nextTrain;
+  }
+
+  async getNextOutbound(line: string) {
+    let filteredDepartures: Departure[] = await this.filterDepartures();
+    let outboundDepartures = filteredDepartures.filter(departure => departure.direction_id !== 1);
+    let destinationName: string;
+    let nextTrain: Departure[] = [];
+
+    while (destinationName !== line) {
+      for (let i of outboundDepartures) {
+        // I think these calls are being made twice
+        let destination = await this.getDestination(i.run_ref)
+        destinationName = destination.destination_name;
+        if (destinationName === line) {
+          nextTrain.push(i);
+          break;
+        }
+      }
+    }
+    nextTrain[0].run_ref = destinationName;
+    nextTrain[0].estimated_departure_utc = new Date(nextTrain[0].estimated_departure_utc).toLocaleTimeString();
+
     return nextTrain;
   }
 
