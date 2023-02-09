@@ -21,30 +21,40 @@ export class OutboundTrainsComponent {
     this.updateDepartures();
     this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc));
     this.getArrivingMinutes(this.toDate(this.nextTrain[1].estimated_departure_utc));
+    this.getArrivingMinutes(this.toDate(this.nextTrain[2].estimated_departure_utc));
+    this.getArrivingMinutes(this.toDate(this.nextTrain[3].estimated_departure_utc));
+    this.getArrivingMinutes(this.toDate(this.nextTrain[4].estimated_departure_utc));
+    this.getArrivingMinutes(this.toDate(this.nextTrain[5].estimated_departure_utc));
+    this.getArrivingMinutes(this.toDate(this.nextTrain[6].estimated_departure_utc));
+    this.getArrivingMinutes(this.toDate(this.nextTrain[7].estimated_departure_utc));
     setInterval(() => {
       this.updateDepartures();
       this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc));
       this.getArrivingMinutes(this.toDate(this.nextTrain[1].estimated_departure_utc));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[2].estimated_departure_utc));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[3].estimated_departure_utc));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[4].estimated_departure_utc));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[5].estimated_departure_utc));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[6].estimated_departure_utc));
+      this.getArrivingMinutes(this.toDate(this.nextTrain[7].estimated_departure_utc));
     }, 10000);
   }
 
   async updateDepartures() {
+    let nextDeparture: NextDeparture[] = [];
     for (let i of Object.keys(Directions)) {
       let value = Number(i);
       if (!isNaN(Number(value))) {
-        console.log(Directions[value])
-        console.log(value)
-        let nextDeparture: NextDeparture[] = [];
+        console.log(value + ': ' + Directions[value])
         let nextTrain: Departure[] = await this.api.getNextOutbound(Directions[value]);
 
-        for (let i in nextTrain) {
-          let tempNextDeparture: NextDeparture = new NextDeparture();
-          tempNextDeparture.destination = nextTrain[i].run_ref;
-          tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
-          tempNextDeparture.platformNumber = nextTrain[i].platform_number;
+        let tempNextDeparture: NextDeparture = new NextDeparture();
+        tempNextDeparture.destination = nextTrain[0].run_ref;
+        tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[0].estimated_departure_utc)).toString();
+        tempNextDeparture.platformNumber = nextTrain[0].platform_number;
 
-          nextDeparture.push(tempNextDeparture);
-        }
+        nextDeparture.push(tempNextDeparture);
+
         this.nextDeparture = nextDeparture;
       }
     }
