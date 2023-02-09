@@ -1,9 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
-import { HelperService } from '../helper/helper.service';
-import { catchError, filter, map, Observable, of } from 'rxjs';
-import { Departure, NextDeparture } from '../departure';
-
+import { Departure, NextDeparture, Directions } from '../departure';
 
 @Component({
   selector: 'app-inbound-trains',
@@ -11,98 +8,44 @@ import { Departure, NextDeparture } from '../departure';
   styleUrls: ['./inbound-trains.component.css']
 })
 export class InboundTrainsComponent implements OnInit {
-  constructor(private api: ApiService, public helper: HelperService, private ngZone: NgZone) { }
+  Directions = Directions;
+  constructor(private api: ApiService, private ngZone: NgZone) { }
 
   currentTime: Date;
-  cityLoopDepartures: Array<string> = [];
-  nextTrain: any;
+  nextTrain: Departure[] = [];
   nextDeparture: NextDeparture[] = [];
-  nextDeparture$: Observable<NextDeparture[]>;
 
   async ngOnInit() {
     // The PTV API returns the destination as: Flinders Street , with one space at the end.
-    this.updateDepartures().subscribe(nextDeparture => {
-      this.nextDeparture$ = of(nextDeparture);
-      // this.nextDeparture$ = of(this.nextDeparture);
-      // this.updateDepartures();
-      this.updateTime();
-      console.log(this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc)));
-      this.getArrivingMinutes(this.toDate(this.nextTrain[1].estimated_departure_utc));
-      setInterval(() => {
-        this.ngZone.run(() => {
-          console.log('test');
-          this.updateTime();
-          this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc));
-          this.getArrivingMinutes(this.toDate(this.nextTrain[1].estimated_departure_utc));
-          this.nextDeparture$ = of(this.nextDeparture);
-        });
-      }, 15000);
-    });
-
+    this.nextTrain = await this.api.getNextInbound();
+    this.updateDepartures();
+    this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc));
+    setInterval(() => {
+      this.updateDepartures();
+      this.getArrivingMinutes(this.toDate(this.nextTrain[0].estimated_departure_utc));
+    }, 10000);
   }
 
-  // async updateDepartures() {
-  //   let nextTrain: Departure[] = await this.api.getNextInbound();
-
-  //   for (let i in nextTrain) {
-  //     let tempNextDeparture: NextDeparture = new NextDeparture();
-  //     tempNextDeparture.destination = nextTrain[i].run_ref;
-  //     tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
-  //     tempNextDeparture.platformNumber = nextTrain[i].platform_number;
-
-  //     this.nextDeparture.push(tempNextDeparture);
-  //   }
-  // }
-
-  // updateDepartures(): Observable<NextDeparture[]> {
-  //   return new Observable(observer => {
-  //     this.api.getNextInbound().then((nextTrain: Departure[]) => {
-  //       for (let i in nextTrain) {
-  //         let tempNextDeparture: NextDeparture = new NextDeparture();
-  //         tempNextDeparture.destination = nextTrain[i].run_ref;
-  //         tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
-  //         tempNextDeparture.platformNumber = nextTrain[i].platform_number;
-
-  //         this.nextDeparture.push(tempNextDeparture);
-  //         console.log(this.nextDeparture)
-  //       }
-  //       observer.next(this.nextDeparture);
-  //       observer.complete();
-  //     });
-  //   });
-  // }
-
-  updateDepartures(): Observable<NextDeparture[]> {
+  async updateDepartures() {
     let nextDeparture: NextDeparture[] = [];
-    return new Observable(observer => {
-      this.api.getNextInbound().then((nextTrain: Departure[]) => {
-        this.nextDeparture = [];
-        for (let i in nextTrain) {
-          let tempNextDeparture: NextDeparture = new NextDeparture();
-          tempNextDeparture.destination = nextTrain[i].run_ref;
-          tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
-          tempNextDeparture.platformNumber = nextTrain[i].platform_number;
+    let nextTrain: Departure[] = await this.api.getNextInbound();
 
-          this.nextDeparture.push(tempNextDeparture);
-          nextDeparture.push(tempNextDeparture);
-        }
-        this.nextDeparture.push(nextDeparture[0]);
-        this.nextDeparture.push(nextDeparture[1]);
-        //console.log(this.nextDeparture)
-        observer.next(this.nextDeparture);
-        observer.complete();
-      });
-    });
+    for (let i in nextTrain) {
+      let tempNextDeparture: NextDeparture = new NextDeparture();
+      tempNextDeparture.destination = nextTrain[i].run_ref;
+      tempNextDeparture.time = this.getArrivingMinutes(this.toDate(nextTrain[i].estimated_departure_utc)).toString();
+      tempNextDeparture.platformNumber = nextTrain[i].platform_number;
+      
+      nextDeparture.push(tempNextDeparture);
+    }
+    this.nextDeparture = nextDeparture;
   }
 
   getArrivingMinutes(nextTrainTime: Date) {
+    this.currentTime = new Date();
     let timeDiff: number = nextTrainTime.getTime() - this.currentTime.getTime();
     let seconds: number = timeDiff / 1000;
     return Math.round(seconds / 60);
-  }
-
-  updateTime() {
-    this.currentTime = new Date();
   }
 
   toDate(estimatedDepartureLocal: string) {
