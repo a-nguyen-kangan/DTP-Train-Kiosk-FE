@@ -23,13 +23,13 @@
             <h3>City Loop</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>1</h3>
+            <h3 *ngIf="this.nextDeparture[0]">{{ this.nextDeparture[1].platformNumber }}</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>5min</h3>
+            <h3 *ngIf="this.nextDeparture[0]">{{ this.nextDeparture[1].time }} min</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>Full</h3>
+            <h3>N/A</h3>
         </mat-grid-tile>
     </mat-grid-list>
 
@@ -38,13 +38,13 @@
             <h3>Flinders</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>4</h3>
+            <h3 *ngIf="this.nextDeparture[0]">{{ this.nextDeparture[0].platformNumber }}</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>10min</h3>
+            <h3 *ngIf="this.nextDeparture[0]">{{ this.nextDeparture[0].time }} min</h3>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3>Limited</h3>
+            <h3>N/A</h3>
         </mat-grid-tile>
     </mat-grid-list>
 </div>
