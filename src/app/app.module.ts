@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 import { WeatherWidgetComponent } from './weather-widget/weather-widget.component';
+import {HttpClientModule}from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WeatherWidgetComponent } from './weather-widget/weather-widget.componen
   imports: [
     BrowserModule,
     NoopAnimationsModule,
-    MatGridListModule
+    MatGridListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
