@@ -9,6 +9,7 @@ import { ClockComponent } from './clock/clock.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BannerComponent } from './banner/banner.component';
 import { FooterComponent } from './footer/footer.component';
+import { WeatherWidgetComponent } from './weather-widget/weather-widget.component';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -19,7 +20,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     OutboundTrainsComponent,
     ClockComponent,
     BannerComponent,
-    FooterComponent
+    FooterComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,
