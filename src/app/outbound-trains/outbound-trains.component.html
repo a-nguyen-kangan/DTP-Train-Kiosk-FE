@@ -18,123 +18,24 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[1] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[0]">{{ this.nextDeparture[0].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[0]">{{ this.nextDeparture[0].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[2] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[1]">{{ this.nextDeparture[1].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[1]">{{ this.nextDeparture[1].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[4] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[2]">{{ this.nextDeparture[2].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[2]">{{ this.nextDeparture[2].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[6] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[3]">{{ this.nextDeparture[3].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[3]">{{ this.nextDeparture[3].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[7] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[4]">{{ this.nextDeparture[4].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[4]">{{ this.nextDeparture[4].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[9] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[5]">{{ this.nextDeparture[5].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[5]">{{ this.nextDeparture[5].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[11] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[6]">{{ this.nextDeparture[6].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[6]">{{ this.nextDeparture[6].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>{{ Directions[12] }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[7]">{{ this.nextDeparture[7].platformNumber }}</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="this.nextDeparture[7]">{{ this.nextDeparture[7].time }} min</h3>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
-            <h3>N/A</h3>
-        </mat-grid-tile>
-    </mat-grid-list>
+    <div *ngIf="nextDepartures">
+        <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
+            <div *ngFor="let direction of directionID; let i = index">
+                <div *ngIf="direction.line !== 'Flinders Street' && direction.line !== 'City Loop'">
+                    <mat-grid-tile class="mat-elevation-z2">
+                        <h3>{{ direction.line }}</h3>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="mat-elevation-z2">
+                        <h3>{{ nextDepartures[i].platform_number }}</h3>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="mat-elevation-z2">
+                        <h3>{{ nextDepartures[i].estimated_departure_utc }}</h3>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="mat-elevation-z2">
+                        <h3>{{ nextDepartures[i].express }}</h3>
+                    </mat-grid-tile>
+                </div>
+            </div>
+        </mat-grid-list>
+    </div>
 </div>
