@@ -1,12 +1,9 @@
 export class Departure {
-    stop_id: number;
-    route_id: number;
-    run_ref: string;
     direction_id: number;
     estimated_departure_utc: string;
-    platform_number: string;
-    destination_name: string;
     express_stop_count: number;
+    platform_number: string;
+    run_id: string;
 }
 
 export class RunRef {
@@ -19,18 +16,18 @@ export class NextDeparture {
     platformNumber: string;
 }
 
-export enum Directions {
-    "Alamein " = 1,
-    "Belgrave " = 2,
+export enum RouteID {
+    "Alamein" = 1,
+    "Belgrave" = 2,
     // Craigieburn = 3,
-    "Cranbourne " = 4,
+    "Cranbourne" = 4,
     // Mernda = 5,
-    "Frankston " = 6,
-    "Glen Waverley " = 7,
+    "Frankston" = 6,
+    "Glen Waverley" = 7,
     // Hurstbridge = 8,
-    "Lilydale "= 9,
-    "Pakenham " = 11,
-    "Sandringham " = 12,
+    "Lilydale" = 9,
+    "Pakenham" = 11,
+    "Sandringham" = 12,
     // StonyPoint = 13,
     // Sunbury = 14,
     // Upfield = 15,
@@ -38,3 +35,16 @@ export enum Directions {
     // Williamstown = 17,
     // ShowgroundsFlemingtonRacecourse = 1482
 }
+
+export const directionID: any[] = [
+    { line: "Alamein", id: 0 },
+    { line: "Belgrave", id: 3 },
+    { line: "Cranbourne", id: 4 },
+    { line: "Frankston", id: 5 },
+    { line: "Glen Waverley", id: 6 },
+    { line: "Lilydale", id: 8 },
+    { line: "Pakenham", id: 10 },
+    { line: "Sandringham", id: 11 },
+    { line: "Flinders Street", id: 1 },
+    //{ line: "City Loop", id: "N/A" }
+];
