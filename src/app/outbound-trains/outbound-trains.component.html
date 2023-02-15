@@ -32,7 +32,9 @@
                         <h3>{{ nextDepartures[i].estimated_departure_utc }}</h3>
                     </mat-grid-tile>
                     <mat-grid-tile class="mat-elevation-z2">
-                        <h3>{{ nextDepartures[i].express }}</h3>
+                        <h3 *ngIf="nextDepartures[i].express == true">EXPRESS</h3>
+                        <h3 *ngIf="!nextDepartures[i].express">NOT EXPRESS</h3>
+                        <h3 *ngIf="nextDepartures[i].express == 'N/A'">N/A</h3>
                     </mat-grid-tile>
                 </div>
             </div>
