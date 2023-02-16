@@ -18,29 +18,27 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <div *ngIf="nextDepartures">
-        <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-            <div *ngFor="let direction of directionID; let i = index">
-                <div *ngIf="direction.line !== 'Flinders Street' && direction.line !== 'City Loop'">
-                    <mat-grid-tile class="mat-elevation-z2">
-                        <h3>{{ direction.line }}</h3>
-                    </mat-grid-tile>
-                    <mat-grid-tile class="mat-elevation-z2">
-                        <h3>{{ nextDepartures[i].platform_number }}</h3>
-                    </mat-grid-tile>
-                    <mat-grid-tile class="mat-elevation-z2">
-                        <h3 *ngIf="nextDepartures[i].estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
-                        <ng-template class="test" #elseBlock>
-                            <h3>{{ nextDepartures[i].estimated_departure_utc }} min</h3>
-                        </ng-template>
-                    </mat-grid-tile>
-                    <mat-grid-tile class="mat-elevation-z2">
-                        <h3 *ngIf="nextDepartures[i].express == true">EXPRESS</h3>
-                        <h3 *ngIf="!nextDepartures[i].express">NOT EXPRESS</h3>
-                        <h3 *ngIf="nextDepartures[i].express == 'N/A'">N/A</h3>
-                    </mat-grid-tile>
-                </div>
+    <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
+        <div *ngFor="let direction of directionID; let i = index">
+            <div *ngIf="direction.line !== 'Flinders Street' && direction.line !== 'City Loop'">
+                <mat-grid-tile class="mat-elevation-z2">
+                    <h3>{{ direction.line }}</h3>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-elevation-z2">
+                    <h3>{{ nextDepartures[i]?.platform_number }}</h3>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-elevation-z2">
+                    <h3 *ngIf="nextDepartures[i]?.estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
+                    <ng-template #elseBlock>
+                        <h3>{{ nextDepartures[i]?.estimated_departure_utc }} min</h3>
+                    </ng-template>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-elevation-z2">
+                    <h3 *ngIf="nextDepartures[i]?.express === true">EXPRESS</h3>
+                    <h3 *ngIf="nextDepartures[i]?.express === false">NOT EXPRESS</h3>
+                    <h3 *ngIf="nextDepartures[i]?.express === 'N/A'">N/A</h3>
+                </mat-grid-tile>
             </div>
-        </mat-grid-list>
-    </div>
+        </div>
+    </mat-grid-list>
 </div>

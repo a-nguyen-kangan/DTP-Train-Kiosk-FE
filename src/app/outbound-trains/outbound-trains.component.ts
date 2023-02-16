@@ -1,21 +1,23 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
 import { directionID } from '../departure';
 
 @Component({
   selector: 'app-outbound-trains',
   templateUrl: './outbound-trains.component.html',
-  styleUrls: ['./outbound-trains.component.css']
+  styleUrls: ['./outbound-trains.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OutboundTrainsComponent {
-  constructor(private api: ApiService, private ngZone: NgZone) { }
+  constructor(private api: ApiService, private changeDetectorRef: ChangeDetectorRef) { }
   directionID: any[] = directionID;
-  nextDepartures: any[];
+  @Input() nextDepartures: any[];
 
-  async ngOnInit() {
+  ngOnInit() {
     this.getDepartures(1162);
     setInterval(() => {
       this.getDepartures(1162);
+      console.log(this.nextDepartures)
     }, 30000);
   }
 
@@ -31,6 +33,6 @@ export class OutboundTrainsComponent {
         this.nextDepartures = [nextTrain];
       }
     }
-    console.log(this.nextDepartures);
+    this.changeDetectorRef.markForCheck();
   }
 }
