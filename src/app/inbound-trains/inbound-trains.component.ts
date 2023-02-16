@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
 import { directionID } from '../departure';
 
@@ -8,9 +8,14 @@ import { directionID } from '../departure';
   styleUrls: ['./inbound-trains.component.css']
 })
 export class InboundTrainsComponent implements OnInit {
-  constructor(private api: ApiService, private ngZone: NgZone) { }
+  constructor(private api: ApiService) { }
   directionID: any[] = directionID;
   nextDepartures: any[];
+  inboundLines: any[] = [
+    'Flinders',
+    'Southern Cross',
+    'Parliament'
+  ]
 
   async ngOnInit() {
     this.getDepartures(1162);
@@ -28,7 +33,7 @@ export class InboundTrainsComponent implements OnInit {
         if (this.directionID[i].id === 1) this.nextDepartures.push(nextTrain);
         else continue;
       } catch {
-        this.nextDepartures = [nextTrain];
+        this.nextDepartures = nextTrain;
       }
     }
     console.log(this.nextDepartures);
