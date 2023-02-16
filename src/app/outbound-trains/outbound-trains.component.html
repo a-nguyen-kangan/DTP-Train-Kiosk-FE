@@ -29,7 +29,10 @@
                         <h3>{{ nextDepartures[i].platform_number }}</h3>
                     </mat-grid-tile>
                     <mat-grid-tile class="mat-elevation-z2">
-                        <h3>{{ nextDepartures[i].estimated_departure_utc }}</h3>
+                        <h3 *ngIf="nextDepartures[i].estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
+                        <ng-template class="test" #elseBlock>
+                            <h3>{{ nextDepartures[i].estimated_departure_utc }} min</h3>
+                        </ng-template>
                     </mat-grid-tile>
                     <mat-grid-tile class="mat-elevation-z2">
                         <h3 *ngIf="nextDepartures[i].express == true">EXPRESS</h3>
