@@ -9,13 +9,7 @@ import { Component, OnInit } from '@angular/core';
   `,
 })
 export class ClockComponent implements OnInit {
-  date = new Date();
-  time: string = this.date.toLocaleTimeString();
-
-  getTime(): string {
-    this.time = this.date.toLocaleTimeString();
-    return this.time;
-  }
+  time: string = new Date().toLocaleTimeString();
 
   ngOnInit() {
     this.updateTime();
@@ -25,7 +19,6 @@ export class ClockComponent implements OnInit {
   }
 
   updateTime() {
-    const currentTime = new Date();
-    this.time = currentTime.toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' });
+    this.time = new Date().toLocaleTimeString('default', { hour: 'numeric', minute: '2-digit' });
   }
 }
