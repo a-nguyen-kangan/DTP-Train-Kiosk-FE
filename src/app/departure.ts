@@ -46,5 +46,4 @@ export const directionID: any[] = [
     { line: "Pakenham", id: 10 },
     { line: "Sandringham", id: 11 },
     { line: "Flinders Street", id: 1 },
-    //{ line: "City Loop", id: "N/A" }
 ];
