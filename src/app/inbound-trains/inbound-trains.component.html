@@ -20,23 +20,25 @@
 
     <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
         <!-- <div *ngFor="let direction of directionID; let i = index"> -->
-            <!-- <div *ngIf="direction.line === 'Flinders Street'"> -->
-                <mat-grid-tile class="mat-elevation-z2">
-                    <h3>City</h3>
-                </mat-grid-tile>
-                <mat-grid-tile class="mat-elevation-z2">
-                    <h3>{{ nextDepartures[0].platform_number }}</h3>
-                </mat-grid-tile>
-                <mat-grid-tile class="mat-elevation-z2">
-                    <h3>{{ nextDepartures[0].estimated_departure_utc }}</h3>
-                </mat-grid-tile>
-                <mat-grid-tile class="mat-elevation-z2">
-                    <h3 *ngIf="nextDepartures[0].express == true">EXPRESS</h3>
-                    <h3 *ngIf="!nextDepartures[0].express">NOT EXPRESS</h3>
-                    <h3 *ngIf="nextDepartures[0].express == 'N/A'">N/A</h3>
-                </mat-grid-tile>
-            <!-- </div> -->
+        <!-- <div *ngIf="direction.line === 'Flinders Street'"> -->
+        <mat-grid-tile class="mat-elevation-z2">
+            <h3>City</h3>
+        </mat-grid-tile>
+        <mat-grid-tile class="mat-elevation-z2">
+            <h3 *ngIf="nextDepartures[0]">{{ nextDepartures[0]?.platform_number }}</h3>
+        </mat-grid-tile>
+        <mat-grid-tile class="mat-elevation-z2">
+            <h3 *ngIf="nextDepartures[0]?.estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
+            <ng-template class="test" #elseBlock>
+                <h3>{{ nextDepartures[0]?.estimated_departure_utc }} min</h3>
+            </ng-template>
+        </mat-grid-tile>
+        <mat-grid-tile class="mat-elevation-z2">
+            <h3 *ngIf="nextDepartures[0]?.express == true">EXPRESS</h3>
+            <h3 *ngIf="!nextDepartures[0]?.express">NOT EXPRESS</h3>
+            <h3 *ngIf="nextDepartures[0]?.express == 'N/A'">N/A</h3>
+        </mat-grid-tile>
+        <!-- </div> -->
         <!-- </div> -->
     </mat-grid-list>
-
 </div>
