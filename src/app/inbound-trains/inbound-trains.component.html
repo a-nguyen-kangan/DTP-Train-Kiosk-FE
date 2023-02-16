@@ -34,9 +34,9 @@
             </ng-template>
         </mat-grid-tile>
         <mat-grid-tile class="mat-elevation-z2">
-            <h3 *ngIf="nextDepartures[0]?.express == true">EXPRESS</h3>
-            <h3 *ngIf="!nextDepartures[0]?.express">NOT EXPRESS</h3>
-            <h3 *ngIf="nextDepartures[0]?.express == 'N/A'">N/A</h3>
+            <h3 *ngIf="nextDepartures[0]?.express === true">EXPRESS</h3>
+            <h3 *ngIf="nextDepartures[0]?.express === false">NOT EXPRESS</h3>
+            <h3 *ngIf="nextDepartures[0]?.express === 'N/A'">N/A</h3>
         </mat-grid-tile>
         <!-- </div> -->
         <!-- </div> -->
