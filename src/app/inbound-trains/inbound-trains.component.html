@@ -19,22 +19,24 @@
     </mat-grid-list>
 
     <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <div *ngFor="let direction of directionID; let i = index">
-            <div *ngIf="direction.line === 'Flinders Street'">
+        <!-- <div *ngFor="let direction of directionID; let i = index"> -->
+            <!-- <div *ngIf="direction.line === 'Flinders Street'"> -->
                 <mat-grid-tile class="mat-elevation-z2">
-                    <h3>Flinders</h3>
+                    <h3>City</h3>
                 </mat-grid-tile>
                 <mat-grid-tile class="mat-elevation-z2">
-                    <!-- <h3>{{ nextDepartures[i].platform_number }}</h3> -->
+                    <h3>{{ nextDepartures[0].platform_number }}</h3>
                 </mat-grid-tile>
                 <mat-grid-tile class="mat-elevation-z2">
-                    <!-- <h3>{{ nextDepartures[i].estimated_departure_utc }}</h3> -->
+                    <h3>{{ nextDepartures[0].estimated_departure_utc }}</h3>
                 </mat-grid-tile>
                 <mat-grid-tile class="mat-elevation-z2">
-                    <!-- <h3>{{ nextDepartures[i].express }}</h3> -->
+                    <h3 *ngIf="nextDepartures[0].express == true">EXPRESS</h3>
+                    <h3 *ngIf="!nextDepartures[0].express">NOT EXPRESS</h3>
+                    <h3 *ngIf="nextDepartures[0].express == 'N/A'">N/A</h3>
                 </mat-grid-tile>
-            </div>
-        </div>
+            <!-- </div> -->
+        <!-- </div> -->
     </mat-grid-list>
 
 </div>
