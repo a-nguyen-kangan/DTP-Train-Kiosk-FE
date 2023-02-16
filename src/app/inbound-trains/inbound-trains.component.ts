@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
 import { directionID } from '../departure';
 
 @Component({
   selector: 'app-inbound-trains',
   templateUrl: './inbound-trains.component.html',
-  styleUrls: ['./inbound-trains.component.css']
+  styleUrls: ['./inbound-trains.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InboundTrainsComponent implements OnInit {
-  constructor(private api: ApiService) { }
+export class InboundTrainsComponent {
+  constructor(private api: ApiService, private changeDetectorRef: ChangeDetectorRef) { }
   directionID: any[] = directionID;
-  nextDepartures: any[];
+  @Input() nextDepartures: any[];
   inboundLines: any[] = [
     'Flinders',
     'Southern Cross',
@@ -21,6 +22,7 @@ export class InboundTrainsComponent implements OnInit {
     this.getDepartures(1162);
     setInterval(() => {
       this.getDepartures(1162);
+      console.log(this.nextDepartures);
     }, 30000);
   }
 
@@ -36,6 +38,6 @@ export class InboundTrainsComponent implements OnInit {
         this.nextDepartures = nextTrain;
       }
     }
-    console.log(this.nextDepartures);
+    this.changeDetectorRef.markForCheck();
   }
 }
