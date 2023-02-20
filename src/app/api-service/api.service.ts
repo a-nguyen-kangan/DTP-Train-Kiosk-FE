@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ApiSignatureGenService } from '../api-signature-gen/api-signature-gen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ApiService {
-  constructor(private apiSigGen: ApiSignatureGenService) { }
+  constructor() { }
 
   async getDeparture(stationID: number, directionID: number) {
     try {
