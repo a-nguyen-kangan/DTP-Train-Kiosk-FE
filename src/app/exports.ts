@@ -36,7 +36,7 @@ export enum RouteID {
     // ShowgroundsFlemingtonRacecourse = 1482
 }
 
-export const directionID: any[] = [
+export const directionIDRichmond: object[] = [
     { line: "Alamein", id: 0 },
     { line: "Belgrave", id: 3 },
     { line: "Cranbourne", id: 4 },

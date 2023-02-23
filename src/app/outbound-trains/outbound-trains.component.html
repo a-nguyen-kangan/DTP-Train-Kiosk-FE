@@ -25,18 +25,18 @@
                     <h3>{{ direction.line }}</h3>
                 </mat-grid-tile>
                 <mat-grid-tile class="mat-elevation-z2">
-                    <h3>{{ nextDepartures[i]?.platform_number }}</h3>
+                    <h3 *ngIf="filteredDepartures?.[i]">{{ filteredDepartures[i]?.platform_number }}</h3>
                 </mat-grid-tile>
                 <mat-grid-tile class="mat-elevation-z2">
-                    <h3 *ngIf="nextDepartures[i]?.estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
+                    <h3 *ngIf="filteredDepartures[i]?.estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
                     <ng-template #elseBlock>
-                        <h3>{{ nextDepartures[i]?.estimated_departure_utc }} min</h3>
+                        <h3>{{ filteredDepartures[i]?.estimated_departure_utc }} min</h3>
                     </ng-template>
                 </mat-grid-tile>
                 <mat-grid-tile class="mat-elevation-z2">
-                    <h3 *ngIf="nextDepartures[i]?.express === true">EXPRESS</h3>
-                    <h3 *ngIf="nextDepartures[i]?.express === false">NOT EXPRESS</h3>
-                    <h3 *ngIf="nextDepartures[i]?.express === 'N/A'">N/A</h3>
+                    <h3 *ngIf="filteredDepartures[i]?.express === true">EXPRESS</h3>
+                    <h3 *ngIf="filteredDepartures[i]?.express === false">NOT EXPRESS</h3>
+                    <h3 *ngIf="filteredDepartures[i]?.express === 'N/A'">N/A</h3>
                 </mat-grid-tile>
             </div>
         </div>
