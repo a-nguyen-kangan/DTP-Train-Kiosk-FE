@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { directionIDRichmond } from '../exports';
 
 @Injectable({
   providedIn: 'root'
@@ -6,15 +7,44 @@ import { Injectable } from '@angular/core';
 
 export class ApiService {
   constructor() { }
+  selectedStationDetails: any;
+  directionID: any[] = directionIDRichmond;
+  nextDepartures: any[];
 
-  async getDeparture(stationID: number, directionID: number) {
+  async getDepartures() {
+    this.nextDepartures = [];
+    await this.getSelectedStation();
+    for (let i in this.directionID) {
+      let nextTrain: any;
+      try {
+        nextTrain = await this.getDeparture(this.directionID[i].id);
+        this.nextDepartures.push(nextTrain);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    console.log(this.nextDepartures);
+  }
+
+  async getDeparture(directionID: number) {
     try {
-      const response = await fetch(`http://67.219.107.113/v1/departures/${stationID}/${directionID}`);
+      const response = await fetch(`http://67.219.107.113/v1/departures/${this.selectedStationDetails.trainstationId}/${directionID}`);
       let res: any[] = await response.json();
       return res;
     } catch (error) {
       console.log(`No trains running to directionID ${directionID}.\n${error}`);
-      return { run_id: 'N/A', directionID: directionID, estimated_departure_utc: 'N/A', express: 'N/A', platform_number: 'N/A'}
+      return { run_id: 'N/A', directionID: directionID, estimated_departure_utc: 'N/A', express: 'N/A', platform_number: 'N/A' }
+    }
+  }
+
+  async getSelectedStation() {
+    try {
+      const response: any = await fetch('http://67.219.107.113/admin/api/v1/Station/getSelected');
+      const res: any = await response.json();
+      this.selectedStationDetails = res;
+      return res;
+    } catch (error) {
+      console.log(`Error getting selected station.\n${error}`);
     }
   }
 }
