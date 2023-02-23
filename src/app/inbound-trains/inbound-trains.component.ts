@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../api-service/api.service';
-import { directionID } from '../departure';
+import { directionIDRichmond } from '../exports';
 
 @Component({
   selector: 'app-inbound-trains',
@@ -10,8 +10,9 @@ import { directionID } from '../departure';
 })
 export class InboundTrainsComponent {
   constructor(private api: ApiService, private changeDetectorRef: ChangeDetectorRef) { }
-  directionID: any[] = directionID;
-  @Input() nextDepartures: any[];
+  directionID: any[] = directionIDRichmond;
+  nextDepartures: any[];
+  @Input() filteredDepartures: any[];
   inboundLines: any[] = [
     'Flinders',
     'Southern Cross',
@@ -19,24 +20,23 @@ export class InboundTrainsComponent {
   ]
 
   async ngOnInit() {
-    this.getDepartures(1162);
-    setInterval(() => {
-      this.getDepartures(1162);
-      console.log(this.nextDepartures);
-    }, 30000);
+    await this.api.getDepartures();
+    this.nextDepartures = this.api.nextDepartures;
+    this.filterDepartures();
+
+    setInterval(async () => {
+      await this.api.getDepartures();
+      this.nextDepartures = this.api.nextDepartures;
+      this.filterDepartures();
+    }, 25000);
   }
 
-  async getDepartures(stationID: number) {
-    this.nextDepartures = [];
-    for (let i in this.directionID) {
-      let nextTrain: any;
-      try {
-        nextTrain = await this.api.getDeparture(stationID, this.directionID[i].id);
-        if (this.directionID[i].id === 1) this.nextDepartures.push(nextTrain);
-        else continue;
-      } catch {
-        this.nextDepartures = nextTrain;
-      }
+  filterDepartures() {
+    this.filteredDepartures = [];
+    for (let i in this.nextDepartures) {
+      if (this.nextDepartures[i].direction_id === 1) {
+        this.filteredDepartures.push(this.nextDepartures[i]);
+      } else continue;
     }
     this.changeDetectorRef.markForCheck();
   }
