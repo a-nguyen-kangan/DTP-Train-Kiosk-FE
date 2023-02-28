@@ -4,34 +4,34 @@
     </h1>
 
     <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="border mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 header">
             <h2>Line</h2>
         </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 header">
             <h2>Platform</h2>
         </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 header">
             <h2>Arriving</h2>
         </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 header">
             <h2>Express</h2>
         </mat-grid-tile>
     </mat-grid-list>
 
     <mat-grid-list cols="4" rowHeight="100px" gutterSize="5px" style="margin-bottom: 5px;">
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 grid">
             <h3>City</h3>
         </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 grid">
             <h3 *ngIf="filteredDepartures?.[0]">{{ filteredDepartures[0]?.platform_number }}</h3>
         </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 grid">
             <h3 *ngIf="filteredDepartures?.[0]?.estimated_departure_utc === 'N/A'; else elseBlock">N/A</h3>
             <ng-template class="test" #elseBlock>
                 <h3>{{ filteredDepartures?.[0]?.estimated_departure_utc }} min</h3>
             </ng-template>
         </mat-grid-tile>
-        <mat-grid-tile class="mat-elevation-z2">
+        <mat-grid-tile class="mat-elevation-z2 grid">
             <h3 *ngIf="filteredDepartures?.[0]?.express === true">EXPRESS</h3>
             <h3 *ngIf="filteredDepartures?.[0]?.express === false">NOT EXPRESS</h3>
             <h3 *ngIf="filteredDepartures?.[0]?.express === 'N/A'">N/A</h3>
