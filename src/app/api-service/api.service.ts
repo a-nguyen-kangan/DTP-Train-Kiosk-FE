@@ -28,7 +28,7 @@ export class ApiService {
 
   async getDeparture(directionID: number) {
     try {
-      const response = await fetch(`https://67.219.107.113/v1/departures/${this.selectedStationDetails.trainstationId}/${directionID}`);
+      const response = await fetch(`https://api.callumhopkins.au/v1/departures/${this.selectedStationDetails.trainstationId}/${directionID}`);
       let res: any[] = await response.json();
       return res;
     } catch (error) {
@@ -39,7 +39,7 @@ export class ApiService {
 
   async getSelectedStation() {
     try {
-      const response: any = await fetch('https://67.219.107.113/admin/api/v1/Station/getSelected');
+      const response: any = await fetch('https://api.callumhopkins.au/admin/api/v1/Station/getSelected');
       const res: any = await response.json();
       this.selectedStationDetails = res;
       return res;
