@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { directionIDRichmond } from '../exports';
+import { directionIDBroadmeadows, directionIDEssendon, directionIDRichmond, directionIDSouthernCross } from '../exports';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,13 @@ import { directionIDRichmond } from '../exports';
 export class ApiService {
   constructor() { }
   selectedStationDetails: any;
-  directionID: any[] = directionIDRichmond;
+  directionID: any[];
   nextDepartures: any[];
 
   async getDepartures() {
     this.nextDepartures = [];
     await this.getSelectedStation();
+    this.getDirectionID();
     for (let i in this.directionID) {
       let nextTrain: any;
       try {
@@ -45,6 +46,26 @@ export class ApiService {
       return res;
     } catch (error) {
       console.log(`Error getting selected station.\n${error}`);
+    }
+  }
+
+  getDirectionID() {
+    switch (this.selectedStationDetails.trainstationId) {
+      case 1162:
+        this.directionID = directionIDRichmond;
+        break;
+      case 1028:
+        this.directionID = directionIDBroadmeadows;
+        break;
+      case 1064:
+        this.directionID = directionIDEssendon;
+        break;
+      case 1181:
+        this.directionID = directionIDSouthernCross;
+        break;
+      default:
+        this.directionID = directionIDRichmond;
+        break;
     }
   }
 }
